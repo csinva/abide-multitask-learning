@@ -1,3 +1,4 @@
+# based on boolean parameters, calculate graphs, calculate accuracies, log-likelihoods
 calc_main <- function(dataset, pre, suff, graph_func, param_func, name, data_train_flattened=NULL){
   pre <<- pre
   suff <<- suff
@@ -69,10 +70,10 @@ calc_main <- function(dataset, pre, suff, graph_func, param_func, name, data_tra
     }
     
     ### ll stats
-    #if(calc_ll){
+    if(calc_ll){
       print('calculate ll stats')
       stats = calc_ll_stats(lams1,lams2,cors)
-    #}
+    }
     
     ### calc_idxs
     if(calc_idxs){

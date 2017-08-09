@@ -1,0 +1,17 @@
+.idea
+data
+*.DS_S*
+*Icon*
+*/*Icon*
+*/*/*Icon*
+papers*
+singh_summaries/write_ups/abide_paper.bbl
+singh_summaries/write_ups/abide_paper.log
+singh_summaries/write_ups/abide_paper.aux
+singh_summaries/write_ups/abide_paper.blg
+singh_summaries/write_ups/abide_paper.synctex.gz
+py/*pycache*
+src/main/slurm*
+singh_summaries/essentialPapers
+singh_summaries/essential_papers
+singh_summaries/slides_sarah

@@ -1,3 +1,4 @@
+# sets cors to the appropriate covariance matrix
 set_cors_baselines <- function(pre,suff,ll=FALSE){
   if(suff=="group" || suff=="fused"){
     return(cors_nsimule)

@@ -26,19 +26,25 @@ labels = as.matrix(read.table(file="labels.csv",sep=",",header=F, check.names=FA
 networks = as.matrix(read.table(file="networks.csv",sep=",",header=F, check.names=FALSE)) # networks (160x1, 6 unique)
 data = load_data(dataset) # load data
 format_data(dataset) # nyu, full
-partition_data(seed)
+partition_data(seed) # calculates train_idxs, val_idxs, test_idxs
 data_train = data[train_idxs]
 n_control_train = sum(train_idxs<=N_autism)
 n_autism_train = length(train_idxs) - n_control_train
 data_train_flattened = flatten_classes(data_train,n_control_train,n_autism_train)
 
+data_test = data[test_idxs]
+n_control_test = sum(test_idxs<=N_autism)
+n_autism_test = length(test_idxs) - n_control_test
+data_test_flattened = flatten_classes(data_test,n_control_test,n_autism_test)
+
 # calculate or load corr matrices
 if(calc_cors){
   calc_all_cors(paste0("cors_",dataset,"_",seed),data_train_flattened)
+  calc_all_cors(paste0("cors_ll_",dataset,"_",seed),data_test_flattened)
 } else{
   load_all_cors(paste0("cors_",dataset,"_",seed)) # cors_nyu_1, cors_full
   if(calc_ll){
-    load_ll_data(norm) # load ll data (set cors_nsimule_ll,...,data_ll)
+    load_ll_data(paste0("cors_ll_",dataset,"_",seed)) # load ll data (set cors_nsimule_ll,...,data_ll)
   }
 }
 

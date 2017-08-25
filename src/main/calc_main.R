@@ -54,7 +54,7 @@ calc_main <- function(dataset, pre, suff, graph_func, param_func, name, data_tra
   try({
   if(calc_ll){
     ### ll setup
-    cors = set_cors_baselines(pre,suff,T)
+    cors = set_cors_baselines(pre,suff,F) # choose which cors to use to make graphs, here set ll=F
     data_out_path_ll = paste0(data_out_path,"/ll")
     dir.create(data_out_path_ll,recursive=T,showWarnings=F)
     setwd(data_out_path_ll)
@@ -69,6 +69,7 @@ calc_main <- function(dataset, pre, suff, graph_func, param_func, name, data_tra
       }
     }
     
+    cors = set_cors_baselines(pre,suff,T) # choose which cors to use to make graphs, here set ll=T to evaluate on test cors
     ### ll stats
     if(calc_ll){
       print('calculate ll stats')

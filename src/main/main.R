@@ -42,10 +42,10 @@ if(calc_cors){
   calc_all_cors(paste0("cors_",dataset,"_",seed),data_train_flattened)
   calc_all_cors(paste0("cors_ll_",dataset,"_",seed),data_test_flattened)
 } else{
-  load_all_cors(paste0("cors_",dataset,"_",seed)) # cors_nyu_1, cors_full
   if(calc_ll){
     load_ll_data(paste0("cors_ll_",dataset,"_",seed)) # load ll data (set cors_nsimule_ll,...,data_ll)
   }
+  load_all_cors(paste0("cors_",dataset,"_",seed)) # cors_nyu_1, cors_full
 }
 
 # set up functions with args

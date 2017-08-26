@@ -1,11 +1,11 @@
 # set params (if you are unsure just set everything to true)
 task_num = 23  # sets the model to run (see cluster_run_main.sh for specifications)
-calc_graphs=F  # run the model?
+calc_graphs=T  # run the model?
 calc_idxs=T  # calculate the idxs from the graphs produced by the model?
 calc_acc=T  # calculate accuracy statistis?
 calc_conn=T  # calculate connectome stats?
 calc_ll=T  # calculate log-likelihood stats?
-calc_cors=T # calculate the correlations (most of these are actually covariances) and save them (must do this at least once)?
+calc_cors=F # calculate the correlations (most of these are actually covariances) and save them (must do this at least once)?
 dir = '/Users/chandansingh/drive/research/singh_connectome/' # points to directory of repo
 # dir = '/home/cs3hq/abide_multitask_learning/'
 dataset = "full" #values: full,nyu - picks what dataset to use
@@ -14,7 +14,7 @@ seed=1 #seed for how to split training data (need to rerun with different seeds 
 # initialize
 args = commandArgs(trailingOnly=TRUE)
 if(length(args)>0){
-    task_num = strtoi(args)
+  task_num = strtoi(args)
 }  
 cat('task_num ',task_num,'\n')
 source(paste0(dir,"src/main/init.R"))
@@ -37,16 +37,14 @@ n_control_test = sum(test_idxs<=N_autism)
 n_autism_test = length(test_idxs) - n_control_test
 data_test_flattened = flatten_classes(data_test,n_control_test,n_autism_test)
 
-# calculate or load corr matrices
+# calculate cors (only need to do this once)
 if(calc_cors){
   calc_all_cors(paste0("cors_",dataset,"_",seed),data_train_flattened)
   calc_all_cors(paste0("cors_ll_",dataset,"_",seed),data_test_flattened)
-} else{
-  if(calc_ll){
-    load_ll_data(paste0("cors_ll_",dataset,"_",seed)) # load ll data (set cors_nsimule_ll,...,data_ll)
-  }
-  load_all_cors(paste0("cors_",dataset,"_",seed)) # cors_nyu_1, cors_full
 }
+# load cors
+load_ll_data(paste0("cors_ll_",dataset,"_",seed)) # load ll data (set cors_nsimule_ll,...,data_ll)
+load_all_cors(paste0("cors_",dataset,"_",seed)) # cors_nyu_1, cors_full
 
 # set up functions with args
 pres = c("n","")
